@@ -1,11 +1,4 @@
-﻿use master;
-go
-drop database if exists brzaHrana;
-go 
-create database brzaHrana collate Croatian_CI_AS;
-go
-
-use brzaHrana;
+﻿
 
 create table korisnici(
 sifra int not null primary key identity(1,1),

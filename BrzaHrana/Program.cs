@@ -24,20 +24,28 @@ builder.Services.AddDbContext<BrzaHranaContext>(
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(opcije =>
     {
         opcije.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
         opcije.EnableTryItOutByDefault();
     });
-}
+//}
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+// za potrebe produkcije
+
+app.UseStaticFiles();
+app.UseDefaultFiles();
+app.MapFallbackToFile("index.html");
+
+// završio za potrebe produkcije
 
 app.Run();
