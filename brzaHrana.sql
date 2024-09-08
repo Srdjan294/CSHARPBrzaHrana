@@ -1,4 +1,20 @@
-﻿
+﻿SELECT name, collation_name FROM sys.databases;
+GO
+ALTER DATABASE db_aace85_brzahrana SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE db_aace85_brzahrana COLLATE Croatian_CI_AS;
+GO
+ALTER DATABASE db_aace85_brzahrana SET MULTI_USER;
+GO
+SELECT name, collation_name FROM sys.databases;
+GO
+
+
+drop table stavke;
+drop table narudzbe;
+drop table korisnici;
+drop table jelovnici;
 
 create table korisnici(
 sifra int not null primary key identity(1,1),
