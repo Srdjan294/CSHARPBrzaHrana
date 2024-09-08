@@ -1,4 +1,4 @@
-using BrzaHrana.Data;
+﻿using BrzaHrana.Data;
 using BrzaHrana.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,8 +20,22 @@ builder.Services.AddDbContext<BrzaHranaContext>(
 
     );
 
+// Svi se od svuda na sve moguæe naèine mogu spojitina naš API
+// Čitati https://code-maze.com/aspnetcore-webapi-best-practices/
+builder.Services.AddCors(opcije =>
+{
+    opcije.AddPolicy("CorsPolicy",
+        builder =>
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+    );
+
+});
+
+
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -46,6 +60,10 @@ app.UseStaticFiles();
 app.UseDefaultFiles();
 app.MapFallbackToFile("index.html");
 
-// zavr�io za potrebe produkcije
+
+app.UseCors("CorsPolicy");
+// završio za potrebe produkcije
+
+
 
 app.Run();
