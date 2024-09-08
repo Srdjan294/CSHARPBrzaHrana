@@ -30,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(opcije =>
     {
         opcije.ConfigObject.AdditionalItems.Add("requestSnippetsEnabled", true);
+        opcije.EnableTryItOutByDefault();
     });
 }
 
