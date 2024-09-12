@@ -2,9 +2,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { RoutesNames } from '../constants';
+
 
 
 export default function NavbarBrzaHrana(){
+
+    const navigate = useNavigate();
     
     
     return(
@@ -12,23 +17,15 @@ export default function NavbarBrzaHrana(){
     
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">Brza Hrana</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link onClick={() => navigate(RoutesNames.HOME)}>Početna</Nav.Link>
+            <Nav.Link href="http://srdjan294-002-site1.atempurl.com/swagger/index.html" target='_blank'>Swagger</Nav.Link>
+            <Nav.Link onClick={() => navigate(RoutesNames.JELOVNIK_PREGLED)}>Jelovnik</Nav.Link>
+            <Nav.Link href="#link">Korisnici</Nav.Link>
+            <Nav.Link href="#link">Narudžbe</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
