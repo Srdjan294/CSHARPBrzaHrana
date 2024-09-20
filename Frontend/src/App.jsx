@@ -9,6 +9,8 @@ import JelovniciPregled from './pages/jelovnici/JelovniciPregled'
 import KorisniciPregled from './pages/korisnici/KorisniciPregled'
 import JelovniciDodaj from './pages/jelovnici/JelovniciDodaj'
 import JelovniciPromjena from './pages/jelovnici/JelovniciPromjena'
+import KorisniciDodaj from './pages/korisnici/KorisniciDodaj'
+import KorisniciPromjena from './pages/korisnici/KorisniciPromjena'
 
 
 
@@ -29,6 +31,10 @@ function App() {
         <Route path={RoutesNames.JELOVNIK_NOVI} element={<JelovniciDodaj/>} />
 
         <Route path={RoutesNames.JELOVNIK_PROMJENA} element={<JelovniciPromjena/>} />
+
+        <Route path={RoutesNames.KORISNIK_NOVI} element={<KorisniciDodaj/>} />
+
+        <Route path={RoutesNames.KORISNIK_PROMJENA} element={<KorisniciPromjena/>} />
 
         
       </Routes>

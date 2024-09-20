@@ -5,7 +5,10 @@ export const RoutesNames = {
     KORISNIK_PREGLED: '/korisnici',
     
     JELOVNIK_NOVI: '/jelovnici/dodaj', 
-    JELOVNIK_PROMJENA: '/jelovnici/:sifra'    
+    JELOVNIK_PROMJENA: '/jelovnici/:sifra',
+    
+    KORISNIK_NOVI: '/korisnici/dodaj',
+    KORISNIK_PROMJENA: '/korisnici/:sifra'
 };
 
 
