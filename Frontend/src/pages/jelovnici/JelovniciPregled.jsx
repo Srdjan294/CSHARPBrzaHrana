@@ -1,13 +1,15 @@
-import { Container, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import JelovnikService from "../../services/JelovnikService";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
+import { Link, useNavigate } from "react-router-dom";
+import { RoutesNames } from "../../constants";
 
 
 
 export default function JelovniciPregled(){
 
-    
+    const navigate = useNavigate();
 
     const[jelovnici,setJelovnici] = useState();
 
@@ -28,8 +30,24 @@ export default function JelovniciPregled(){
     },[]);
 
 
+    async function obrisiAsync(sifra){
+        const odgovor = await JelovnikService.obrisi(sifra);
+        if(odgovor.greska){
+            alert(odgovor.poruka);
+            return;
+        }
+        dohvatiJelovnike();
+    }
+
+
+    function obrisi(sifra){
+        obrisiAsync(sifra);
+    }
+
+
     return(
         <Container>
+            <Link to={RoutesNames.JELOVNIK_NOVI}>Dodaj novo jelo</Link>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
@@ -55,6 +73,20 @@ export default function JelovniciPregled(){
                                 decimalScale={2}
                                 fixedDecimalScale/>
                                 }
+                            </td>
+                            <td>
+                                <Button
+                                variant="primary"
+                                onClick={() => navigate(`/jelovnici/${jelovnik.sifra}`)}>
+                                   Promjeni     
+                                </Button>
+                                &nbsp;&nbsp;
+                                <Button
+                                variant = "danger"
+                                onClick={() => obrisi(jelovnik.sifra)}>
+                                    Obriši
+                                </Button>
+                                
                             </td>
                         </tr>
                     ))}

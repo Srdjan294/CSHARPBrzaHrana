@@ -2,7 +2,10 @@ export const RoutesNames = {
 
     HOME: '/',
     JELOVNIK_PREGLED: '/jelovnici',
-    KORISNIK_PREGLED: '/korisnici'    
+    KORISNIK_PREGLED: '/korisnici',
+    
+    JELOVNIK_NOVI: '/jelovnici/dodaj', 
+    JELOVNIK_PROMJENA: '/jelovnici/:sifra'    
 };
 
 
