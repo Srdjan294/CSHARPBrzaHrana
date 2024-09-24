@@ -1,4 +1,5 @@
 ﻿using BrzaHrana.Data;
+using BrzaHrana.Mapping;
 using BrzaHrana.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,10 @@ builder.Services.AddCors(opcije =>
     );
 
 });
+
+
+// automapper
+builder.Services.AddAutoMapper(typeof(BrzaHranaMappingProfile));
 
 
 
