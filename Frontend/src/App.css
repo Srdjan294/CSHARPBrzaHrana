@@ -9,3 +9,21 @@
 .siroko{
     width: 100%;
 }
+
+.parentContainer {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.text-container {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    left: 20%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(41, 41, 41, 0.8);
+    padding: 0.5rem;
+    text-align: top;
+    font-size: 16px;
+}
