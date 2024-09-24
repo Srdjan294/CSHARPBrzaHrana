@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EdunovaAPP.Data.Models
+namespace BrzaHrana.Data.Models
 {
     public abstract class Entitet
     {

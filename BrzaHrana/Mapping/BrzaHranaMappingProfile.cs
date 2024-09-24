@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BrzaHrana.Models;
+using BrzaHrana.Data.Models;
 using BrzaHrana.Models.DTO;
 
 namespace BrzaHrana.Mapping

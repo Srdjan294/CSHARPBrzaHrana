@@ -1,6 +1,8 @@
 ﻿using BrzaHrana.Data.Models;
 using BrzaHrana.Data;
+using AutoMapper;
 using BrzaHrana.Data.Models;
+using BrzaHrana.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
 
@@ -9,47 +11,82 @@ namespace BrzaHrana.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class JelovnikController : ControllerBase
+    public class JelovnikController(BrzaHranaContext context, IMapper mapper) : BrzaHranaController(context, mapper)
     {
 
-        // dependency injection
-        // 1. definiraš privatno svojstvo
-        private readonly BrzaHranaContext _context;
-
-        // dependency injection
-        // 2. proslijediš instancu kroz konstruktor 
-
-        public JelovnikController(BrzaHranaContext context)
-        {
-            _context = context;
-        }
+        
 
         // RUTE
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<List<JelovnikDTORead>> Get()
         {
-            return Ok(_context.Jelovnici);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                return Ok(_mapper.Map<List<JelovnikDTORead>>(_context.Jelovnici));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+
         }
 
 
 
         [HttpGet]
         [Route("{sifra:int}")]
-        public IActionResult GetBySifra(int sifra)
+        public ActionResult<JelovnikDTORead> GetBySifra(int sifra)
         {
-            return Ok(_context.Jelovnici.Find(sifra));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            Jelovnik? e;
+            try
+            {
+                e = _context.Jelovnici.Find(sifra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+            if (e == null)
+            {
+                return NotFound(new { poruka = "Jelo ne postoji u bazi" });
+            }
+
+            return Ok(_mapper.Map<JelovnikDTORead>(e));
 
         }
 
 
         [HttpPost]
 
-        public IActionResult Post(Jelovnik jelovnik)
+        public IActionResult Post(JelovnikDTOInsertUpdate smjerDTO)
         {
-            _context.Jelovnici.Add(jelovnik);
-            _context.SaveChanges();
-            return StatusCode(StatusCodes.Status201Created, jelovnik);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                var e = _mapper.Map<Jelovnik>(smjerDTO);
+                _context.Jelovnici.Add(e);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<JelovnikDTORead>(e));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+
+
+
         }
 
 
@@ -57,35 +94,76 @@ namespace BrzaHrana.Controllers
         [Route("{sifra:int}")]
         [Produces("application/json")]
 
-        public IActionResult Put(int sifra, Jelovnik jelo)
+        public IActionResult Put(int sifra, JelovnikDTOInsertUpdate smjerDTO)
         {
-            var jeloIzBaze = _context.Jelovnici.Find(sifra);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Jelovnik? e;
+                try
+                {
+                    e = _context.Jelovnici.Find(sifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound(new { poruka = "Jelo ne postoji u bazi" });
+                }
 
-            // za sada ručno, kasnije Mapper
+                e = _mapper.Map(smjerDTO, e);
 
-            jeloIzBaze.Naziv_Jela = jelo.Naziv_Jela;
-            jeloIzBaze.Kategorija = jelo.Kategorija;
-            jeloIzBaze.Cijena = jelo.Cijena;
+                _context.Jelovnici.Update(e);
+                _context.SaveChanges();
 
+                return Ok(new { poruka = "Uspješno promjenjeno" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
 
-            _context.Jelovnici.Update(jeloIzBaze);
-            _context.SaveChanges();
-
-            return Ok(new { poruka = "Uspješno promjenjeno" });
         }
 
 
-
-        [HttpDelete]
+            [HttpDelete]
         [Route("{sifra:int}")]
         [Produces("application/json")]
 
         public IActionResult Delete(int sifra)
         {
-            var jeloIzBaze = _context.Jelovnici.Find(sifra);
-            _context.Jelovnici.Remove(jeloIzBaze);
-            _context.SaveChanges();
-            return Ok(new { poruka = "Uspješno obrisano" });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Jelovnik? e;
+                try
+                {
+                    e = _context.Jelovnici.Find(sifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound("Jelo ne postoji u bazi");
+                }
+                _context.Jelovnici.Remove(e);
+                _context.SaveChanges();
+                return Ok(new { poruka = "Uspješno obrisano" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
         }
     }
 }
