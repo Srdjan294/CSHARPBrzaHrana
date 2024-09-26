@@ -1,6 +1,6 @@
 ﻿
 
-using EdunovaAPP.Data.Models;
+using BrzaHrana.Data.Models;
 
 namespace BrzaHrana.Data.Models
 {

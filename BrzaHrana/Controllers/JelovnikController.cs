@@ -67,7 +67,7 @@ namespace BrzaHrana.Controllers
 
         [HttpPost]
 
-        public IActionResult Post(JelovnikDTOInsertUpdate smjerDTO)
+        public IActionResult Post(JelovnikDTOInsertUpdate dto)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace BrzaHrana.Controllers
             }
             try
             {
-                var e = _mapper.Map<Jelovnik>(smjerDTO);
+                var e = _mapper.Map<Jelovnik>(dto);
                 _context.Jelovnici.Add(e);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, _mapper.Map<JelovnikDTORead>(e));
@@ -94,7 +94,7 @@ namespace BrzaHrana.Controllers
         [Route("{sifra:int}")]
         [Produces("application/json")]
 
-        public IActionResult Put(int sifra, JelovnikDTOInsertUpdate smjerDTO)
+        public IActionResult Put(int sifra, JelovnikDTOInsertUpdate dto)
         {
             if (!ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace BrzaHrana.Controllers
                     return NotFound(new { poruka = "Jelo ne postoji u bazi" });
                 }
 
-                e = _mapper.Map(smjerDTO, e);
+                e = _mapper.Map(dto, e);
 
                 _context.Jelovnici.Update(e);
                 _context.SaveChanges();
@@ -131,7 +131,7 @@ namespace BrzaHrana.Controllers
         }
 
 
-            [HttpDelete]
+        [HttpDelete]
         [Route("{sifra:int}")]
         [Produces("application/json")]
 

@@ -25,15 +25,11 @@ function App() {
         <Route path={RoutesNames.HOME} element={<Pocetna />} />
 
         <Route path={RoutesNames.JELOVNIK_PREGLED} element={<JelovniciPregled/>} />
-
-        <Route path={RoutesNames.KORISNIK_PREGLED} element={<KorisniciPregled/>} />
-
         <Route path={RoutesNames.JELOVNIK_NOVI} element={<JelovniciDodaj/>} />
-
         <Route path={RoutesNames.JELOVNIK_PROMJENA} element={<JelovniciPromjena/>} />
 
+        <Route path={RoutesNames.KORISNIK_PREGLED} element={<KorisniciPregled/>} />
         <Route path={RoutesNames.KORISNIK_NOVI} element={<KorisniciDodaj/>} />
-
         <Route path={RoutesNames.KORISNIK_PROMJENA} element={<KorisniciPromjena/>} />
 
         

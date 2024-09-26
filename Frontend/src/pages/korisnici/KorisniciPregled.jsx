@@ -14,7 +14,7 @@ export default function KorisniciPregled(){
 
     async function dohvatiKorisnike(){
         
-        const podaci = await KorisnikService.get()
+        await KorisnikService.get()
         .then((odgovor) => {
             console.log('Vratio se')
             console.log(odgovor);

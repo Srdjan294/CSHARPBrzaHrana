@@ -1,55 +1,90 @@
 ﻿using BrzaHrana.Data.Models;
 using BrzaHrana.Data;
+using AutoMapper;
 using BrzaHrana.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using BrzaHrana.Models.DTO;
 using System.Diagnostics.Contracts;
+using BrzaHrana.Data.Models.DTO;
 
 namespace BrzaHrana.Controllers
 {
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class KorisnikController : ControllerBase
+    public class KorisnikController(BrzaHranaContext context, IMapper mapper) : BrzaHranaController(context, mapper)
     {
 
-        // dependency injection
-        // 1. definiraš privatno svojstvo
-        private readonly BrzaHranaContext _context;
-
-        // dependency injection
-        // 2. proslijediš instancu kroz konstruktor 
-
-        public KorisnikController(BrzaHranaContext context)
-        {
-            _context = context;
-        }
+        
 
         // RUTE
 
         [HttpGet]
-        public IActionResult Get()
+        public ActionResult<List<KorisnikDTORead>> Get()
         {
-            return Ok(_context.Korisnici);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                return Ok(_mapper.Map<List<KorisnikDTORead>>(_context.Korisnici));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
         }
 
 
 
         [HttpGet]
         [Route("{sifra:int}")]
-        public IActionResult GetBySifra(int sifra)
+        public ActionResult<KorisnikDTORead> GetBySifra(int sifra)
         {
-            return Ok(_context.Korisnici.Find(sifra));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            Korisnik? e;
+            try
+            {
+                e = _context.Korisnici.Find(sifra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+            if (e == null)
+            {
+                return NotFound(new { poruka = "Jelo ne postoji u bazi" });
+            }
+
+            return Ok(_mapper.Map<KorisnikDTORead>(e));
+
 
         }
 
 
         [HttpPost]
 
-        public IActionResult Post(Korisnik korisnik)
+        public IActionResult Post(KorisnikDTOInsertUpdate dto)
         {
-            _context.Korisnici.Add(korisnik);
-            _context.SaveChanges();
-            return StatusCode(StatusCodes.Status201Created, korisnik);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                var e = _mapper.Map<Korisnik>(dto);
+                _context.Korisnici.Add(e);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<KorisnikDTORead>(e));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
         }
 
 
@@ -57,21 +92,39 @@ namespace BrzaHrana.Controllers
         [Route("{sifra:int}")]
         [Produces("application/json")]
 
-        public IActionResult Put(int sifra, Korisnik korisnik)
+        public IActionResult Put(int sifra, KorisnikDTOInsertUpdate dto)
         {
-            var korisnikIzBaze = _context.Korisnici.Find(sifra);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Korisnik? e;
+                try
+                {
+                    e = _context.Korisnici.Find(sifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound(new { poruka = "Korisnik ne postoji u bazi" });
+                }
 
-            // za sada ručno, kasnije Mapper
+                e = _mapper.Map(dto, e);
 
-            korisnikIzBaze.Ime = korisnik.Ime;
-            korisnikIzBaze.Prezime = korisnik.Prezime;
-            korisnikIzBaze.Email = korisnik.Email;
-            
+                _context.Korisnici.Update(e);
+                _context.SaveChanges();
 
-            _context.Korisnici.Update(korisnikIzBaze);
-            _context.SaveChanges();
-
-            return Ok(new { poruka = "Uspješno promjenjeno" });
+                return Ok(new { poruka = "Uspješno promjenjeno" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
         }
 
 
@@ -82,10 +135,33 @@ namespace BrzaHrana.Controllers
 
         public IActionResult Delete(int sifra)
         {
-            var korisnikIzBaze = _context.Korisnici.Find(sifra);
-            _context.Korisnici.Remove(korisnikIzBaze);
-            _context.SaveChanges();
-            return Ok(new { poruka = "Uspješno obrisano" });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { poruka = ModelState });
+            }
+            try
+            {
+                Korisnik? e;
+                try
+                {
+                    e = _context.Korisnici.Find(sifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (e == null)
+                {
+                    return NotFound("Korisnik ne postoji u bazi");
+                }
+                _context.Korisnici.Remove(e);
+                _context.SaveChanges();
+                return Ok(new { poruka = "Uspješno obrisano" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
         }
     }
 }
