@@ -57,7 +57,7 @@ namespace BrzaHrana.Controllers
             }
             if (e == null)
             {
-                return NotFound(new { poruka = "Jelo ne postoji u bazi" });
+                return NotFound(new { poruka = "Korisnik ne postoji u bazi" });
             }
 
             return Ok(_mapper.Map<KorisnikDTORead>(e));
