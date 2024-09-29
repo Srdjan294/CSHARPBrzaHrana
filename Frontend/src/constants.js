@@ -7,7 +7,12 @@ export const RoutesNames = {
     
     KORISNIK_PREGLED: '/korisnici',
     KORISNIK_NOVI: '/korisnici/dodaj',
-    KORISNIK_PROMJENA: '/korisnici/:sifra'
+    KORISNIK_PROMJENA: '/korisnici/:sifra',
+
+    NARUDZBA_PREGLED: '/narudzbe',
+    NARUDZBA_NOVI: '/narudzbe/dodaj',
+    NARUDZBA_PROMJENA: '/narudzbe/:sifra'
+
 };
 
 

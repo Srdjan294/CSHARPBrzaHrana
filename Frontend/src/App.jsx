@@ -11,6 +11,9 @@ import JelovniciDodaj from './pages/jelovnici/JelovniciDodaj'
 import JelovniciPromjena from './pages/jelovnici/JelovniciPromjena'
 import KorisniciDodaj from './pages/korisnici/KorisniciDodaj'
 import KorisniciPromjena from './pages/korisnici/KorisniciPromjena'
+import NarudzbePregled from './pages/narudzbe/NarudzbePregled'
+import NarudzbeDodaj from './pages/narudzbe/NarudzbeDodaj'
+import NarudzbePromjena from './pages/narudzbe/NarudzbePromjena'
 
 
 
@@ -32,6 +35,9 @@ function App() {
         <Route path={RoutesNames.KORISNIK_NOVI} element={<KorisniciDodaj/>} />
         <Route path={RoutesNames.KORISNIK_PROMJENA} element={<KorisniciPromjena/>} />
 
+        <Route path={RoutesNames.NARUDZBA_PREGLED} element={<NarudzbePregled/>} />
+        <Route path={RoutesNames.NARUDZBA_NOVI} element={<NarudzbeDodaj/>} />
+        <Route path={RoutesNames.NARUDZBA_PROMJENA} element={<NarudzbePromjena/>} />
         
       </Routes>
     </>

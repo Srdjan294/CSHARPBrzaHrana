@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BrzaHrana.Data.Models;
 using BrzaHrana.Data.Models.DTO;
+using BrzaHrana.Models;
 using BrzaHrana.Models.DTO;
+using System.Text.RegularExpressions;
 
 namespace BrzaHrana.Mapping
 {
@@ -18,6 +20,16 @@ namespace BrzaHrana.Mapping
             //CreateMap<KorisnikDTORead, Korisnik>();
             CreateMap<KorisnikDTOInsertUpdate, Korisnik>();
 
+            CreateMap<Narudzba, NarudzbaDTORead>()
+                .ForMember(
+                    dest => dest.KorisnikImePrezime,
+                    opt => opt.MapFrom(src => src.Korisnik.Ime + ' ' +  src.Korisnik.Prezime)
+                );
+            CreateMap<Narudzba, NarudzbaDTOInsertUpdate>().ForMember(
+                   dest => dest.KorisnikSifra,
+                   opt => opt.MapFrom(src => src.Korisnik.Sifra)
+               );
+            CreateMap<NarudzbaDTOInsertUpdate, Narudzba>();
 
         }
     }

@@ -25,7 +25,7 @@ export default function NavbarBrzaHrana(){
             <Nav.Link href="http://srdjan294-002-site1.atempurl.com/swagger/index.html" target='_blank'>Swagger</Nav.Link>
             <Nav.Link onClick={() => navigate(RoutesNames.JELOVNIK_PREGLED)}>Jelovnik</Nav.Link>
             <Nav.Link onClick={() => navigate(RoutesNames.KORISNIK_PREGLED)}>Korisnici</Nav.Link>
-            <Nav.Link href="#link">Narudžbe</Nav.Link>
+            <Nav.Link onClick={() => navigate(RoutesNames.NARUDZBA_PREGLED)}>Narudžbe</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
