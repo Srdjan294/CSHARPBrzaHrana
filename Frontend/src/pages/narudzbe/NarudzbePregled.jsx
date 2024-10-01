@@ -57,7 +57,7 @@ export default function NarudzbePregled(){
                 <tbody>
                     {narudzbe && narudzbe.map((entitet,index)=>(
                         <tr key={index}>
-                            <td>{entitet.korisnikIme}</td>
+                            <td>{entitet.korisnikImePrezime}</td>
                             <td>{entitet.adresa}</td>
                             <td>{entitet.datum}</td>
                             <td>{entitet.ukupna_Cijena}</td>

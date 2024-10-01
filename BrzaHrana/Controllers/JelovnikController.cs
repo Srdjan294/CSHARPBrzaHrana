@@ -1,7 +1,6 @@
 ﻿using BrzaHrana.Data.Models;
 using BrzaHrana.Data;
 using AutoMapper;
-using BrzaHrana.Data.Models;
 using BrzaHrana.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;

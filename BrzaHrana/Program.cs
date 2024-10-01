@@ -1,6 +1,5 @@
 ﻿using BrzaHrana.Data;
 using BrzaHrana.Mapping;
-using BrzaHrana.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
