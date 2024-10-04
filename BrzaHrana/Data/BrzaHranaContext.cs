@@ -29,9 +29,9 @@ namespace BrzaHrana.Data
                 .HasMany(n => n.Jelovnici)
                 .WithMany(j => j.Narudzbe)
                 .UsingEntity<Dictionary<string, object>>("stavke",
-                c => c.HasOne<Jelovnik>().WithMany().HasForeignKey("jelovnik"),
-                c => c.HasOne<Narudzba>().WithMany().HasForeignKey("narudzba"),
-                c => c.ToTable("stavke")
+                s => s.HasOne<Jelovnik>().WithMany().HasForeignKey("jelovnik"),
+                s => s.HasOne<Narudzba>().WithMany().HasForeignKey("narudzba"),
+                s => s.ToTable("stavke")
                 );
 
         }

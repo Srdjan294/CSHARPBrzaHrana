@@ -41,7 +41,7 @@ export default function NarudzbePregled(){
     return (
 
         <Container>
-            <Link to={RoutesNames.NARUDZBA_NOVI} className="btn btn-success siroko">
+            <Link to={RoutesNames.NARUDZBA_NOVI} class="btn btn-success siroko">
                  Dodaj
             </Link>
             <Table striped bordered hover responsive>
@@ -55,16 +55,16 @@ export default function NarudzbePregled(){
                     </tr>
                 </thead>
                 <tbody>
-                    {narudzbe && narudzbe.map((entitet,index)=>(
+                    {narudzbe && narudzbe.map((narudzba,index)=>(
                         <tr key={index}>
-                            <td>{entitet.korisnikImePrezime}</td>
-                            <td>{entitet.adresa}</td>
-                            <td>{entitet.datum}</td>
-                            <td>{entitet.ukupna_Cijena}</td>
+                            <td>{narudzba.korisnikImePrezime}</td>
+                            <td>{narudzba.adresa}</td>
+                            <td>{narudzba.datum}</td>
+                            <td>{narudzba.ukupna_Cijena}</td>
                             <td className="sredina">
                                     <Button
                                         variant='primary'
-                                        onClick={()=>{navigate(`/narudzbe/${entitet.sifra}`)}}
+                                        onClick={()=>{navigate(`/narudzbe/${narudzba.sifra}`)}}
                                         
                                     >
                                         Promjeni narudžbu
@@ -73,7 +73,7 @@ export default function NarudzbePregled(){
                                     &nbsp;&nbsp;&nbsp;
                                     <Button
                                         variant='danger'
-                                        onClick={() => obrisiNarudzbu(entitet.sifra)}
+                                        onClick={() => obrisiNarudzbu(narudzba.sifra)}
                                     >
                                         Obriši
                                     </Button>
