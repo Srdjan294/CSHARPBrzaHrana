@@ -12,7 +12,7 @@ namespace BrzaHrana.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class NaruzdbaController(BrzaHranaContext context, IMapper mapper) : BrzaHranaController(context, mapper)
+    public class NarudzbaController(BrzaHranaContext context, IMapper mapper) : BrzaHranaController(context, mapper)
     {
 
 
@@ -26,7 +26,25 @@ namespace BrzaHrana.Controllers
             }
             try
             {
-                return Ok(_mapper.Map<List<NarudzbaDTORead>>(_context.Narudzbe.Include(n => n.Korisnik)));
+
+                var lista = _context.Narudzbe.Include(n => n.Korisnik).ToList();
+                foreach (var n in lista){
+                    Console.WriteLine(n.Korisnik.Ime);
+                }
+                try
+                {
+                    var dtos = _mapper.Map<List<NarudzbaDTORead>>(lista);
+                    return Ok(dtos);
+                } catch (AutoMapperMappingException e)
+                {
+                    return BadRequest(e.Message + " " + e.HelpLink);
+                }
+               
+
+               
+
+               
+
             }
             catch (Exception ex)
             {
@@ -114,7 +132,7 @@ namespace BrzaHrana.Controllers
                 Narudzba? e;
                 try
                 {
-                    e = _context.Narudzbe.Include(n => n.Korisnik).FirstOrDefault(n => n.Sifra == sifra);
+                    e = _context.Narudzbe.Include(n => n.Korisnik).FirstOrDefault(x => x.Sifra == sifra);
                 }
                 catch (Exception ex)
                 {

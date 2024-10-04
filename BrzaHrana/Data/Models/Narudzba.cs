@@ -13,8 +13,9 @@ namespace BrzaHrana.Models
 
         public DateTime? Datum { get; set; }
 
-        public decimal? Ukupna_Cijena { get; set; }
+        [Column("Ukupna_Cijena")]
+        public decimal? UkupnaCijena { get; set; }
 
-        public ICollection<Jelovnik>? Jelovnici { get; set; }
+       // public ICollection<Jelovnik>? Jelovnici { get; set; }
     }
 }

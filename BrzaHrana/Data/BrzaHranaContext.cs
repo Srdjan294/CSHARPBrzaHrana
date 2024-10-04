@@ -25,6 +25,7 @@ namespace BrzaHrana.Data
             modelBuilder.Entity<Narudzba>().HasOne(n => n.Korisnik);
 
             // implementacija veze n:n
+            /*
             modelBuilder.Entity<Narudzba>()
                 .HasMany(n => n.Jelovnici)
                 .WithMany(j => j.Narudzbe)
@@ -33,7 +34,7 @@ namespace BrzaHrana.Data
                 s => s.HasOne<Narudzba>().WithMany().HasForeignKey("narudzba"),
                 s => s.ToTable("stavke")
                 );
-
+            */
         }
     }
 }
