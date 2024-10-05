@@ -204,8 +204,32 @@ namespace BrzaHrana.Controllers
                 return BadRequest(new { poruka = ex.Message });
             }
         }
+        /*
+        [HttpGet]
+        [Route("Jelovnici/{sifraNarudzbe:int}")]
+        public ActionResult<List<JelovnikDTORead>> GetJelovnici(int sifraNarudzbe)
+        {
+            if (!ModelState.IsValid || sifraNarudzbe <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var p = _context.Narudzbe.FirstOrDefault(x => x.Sifra == sifraNarudzbe);
+                if (p == null)
+                {
+                    return BadRequest("Ne postoji Narudzba s šifrom " + sifraNarudzbe + " u bazi");
+                }
 
+                return Ok(_mapper.Map<List<JelovnikDTORead>>(p.Jelovnici));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+        }
 
+        */
 
     }
 }

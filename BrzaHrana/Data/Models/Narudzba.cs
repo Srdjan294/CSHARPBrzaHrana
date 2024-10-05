@@ -16,6 +16,5 @@ namespace BrzaHrana.Models
         [Column("Ukupna_Cijena")]
         public decimal? UkupnaCijena { get; set; }
 
-       // public ICollection<Jelovnik>? Jelovnici { get; set; }
     }
 }

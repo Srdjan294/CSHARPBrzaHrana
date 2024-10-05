@@ -1,5 +1,5 @@
 
-import { Button, Col, Form, Row} from 'react-bootstrap';
+import { Button, Col, Form, Row, Table} from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Service from '../../services/NarudzbaService';
@@ -11,8 +11,9 @@ export default function NarudzbePromjena() {
   const navigate = useNavigate();
   const routeParams = useParams();
 
+  const [korisnici, setKorisnici] = useState([]);
+  const [korisnikSifra, setKorisnikSifra] = useState(0);
   const [jelovnici, setJelovnici] = useState([]);
-  const [jelovnikSifra, setJelovnikSifra] = useState(0);
 
   const [narudzba, setNarudzba] = useState({});
 
@@ -32,9 +33,20 @@ export default function NarudzbePromjena() {
     setKorisnikSifra(narudzba.smjerSifra); 
   }
 
+  async function dohvatiJelovnici() {
+    const odgovor = await Service.getJelovnici(routeParams.sifra);
+    if(odgovor.greska){
+      alert(odgovor.poruka);
+      return;
+    }
+    setJelovnici(odgovor.poruka);
+  }
+
+
   async function dohvatiInicijalnePodatke() {
     await dohvatiKorisnike();
     await dohvatiNarudzba();
+    await dohvatiJelovnici();
   }
 
 
@@ -114,9 +126,38 @@ export default function NarudzbePromjena() {
               </Col>
               <Col xs={6} sm={6} md={9} lg={6} xl={6} xxl={6}>
               <Button variant="primary" type="submit" className="siroko">
-                  Promjeni grupu
+                  Promjeni narudžbu
               </Button>
               </Col>
+              <Col key='2' sm={12} lg={6} md={6}>
+        <div style={{overflow: 'auto', maxHeight:'400px'}}>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Jelovnici na narudžbi</th>
+                <th>Akcija</th>
+              </tr>
+            </thead>
+            <tbody>
+              {jelovnici &&
+                jelovnici.map((jelovnik, index) => (
+                  <tr key={index}>
+                    <td>
+                       {jelovnik.naziv_Jela} 
+                      
+                    </td>
+                    <td>
+                      <Button variant='danger' onClick={() =>
+                          obrisiJelovnik(routeParams.sifra, jelovnik.sifra)
+                        } >
+                      </Button>
+                      </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+          </div>
+        </Col>
           </Row>
       </Form>
   </>

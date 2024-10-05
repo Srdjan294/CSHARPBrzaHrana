@@ -71,10 +71,20 @@ async function promjena(sifra,Narudzba) {
     })
 }
 
+async function getJelovnici(sifra){
+    return await HttpService.get('/Narudzba/Jelovnici/'+ sifra)
+    .then((odgovor)=>{
+        //console.table(odgovor.data);
+        return {greska: false, poruka: odgovor.data}
+    })
+    .catch((e)=>{return {greska: true, poruka: 'Problem kod dohvaćanja jelovnika'}})
+}
+
 export default{
     get,
     getBySifra,
     obrisi,
     dodaj,
-    promjena
+    promjena,
+    getJelovnici
 }

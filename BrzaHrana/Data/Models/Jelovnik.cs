@@ -11,6 +11,5 @@ namespace BrzaHrana.Data.Models
         public string? Naziv_Jela { get; set; }
         public string? Kategorija { get; set; }
         public decimal? Cijena { get; set; }
-        //public ICollection<Narudzba>? Narudzbe { get; } = [];
     }
 }
