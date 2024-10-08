@@ -10,7 +10,7 @@ namespace BrzaHrana.Models.DTO
         [Required(ErrorMessage = "Datum obavezno")]
         DateTime? Datum,
         [Required(ErrorMessage = "Ukupna cijena obavezno")]
-        decimal? Ukupna_Cijena
+        decimal? UkupnaCijena
         );
 
 

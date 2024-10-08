@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import Service from '../../services/NarudzbaService';
 import KorisnikService from '../../services/KorisnikService';
 import { RoutesNames } from '../../constants';
+import moment from 'moment';
+
 
 
 export default function NarudzbeDodaj() {
@@ -45,7 +47,7 @@ export default function NarudzbeDodaj() {
       korisnikSifra: parseInt(korisnikSifra),
       adresa: podaci.get('adresa'),
       datum: moment.utc(podaci.get('datum')),
-      ukupna_Cijena: parseFloat(podaci.get('ukupna_Cijena'))
+      ukupnaCijena: parseFloat(podaci.get('ukupnaCijena'))
     });
   }
 
@@ -81,9 +83,9 @@ export default function NarudzbeDodaj() {
           </Form.Group>
 
 
-          <Form.Group controlId="ukupna_Cijena">
+          <Form.Group controlId="ukupnaCijena">
               <Form.Label>Ukupna cijena</Form.Label>
-              <Form.Control type="number" name="ukupna_Cijena" step={0.0100}/>
+              <Form.Control type="number" name="ukupnaCijena" step={0.0100}/>
           </Form.Group>
 
 

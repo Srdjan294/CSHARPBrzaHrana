@@ -26,13 +26,13 @@ namespace BrzaHrana.Mapping
                     opt => opt.MapFrom(src => src.Korisnik.Ime + " " +  src.Korisnik.Prezime)
                 )
                 ;
-            /*
+            
             CreateMap<Narudzba, NarudzbaDTOInsertUpdate>().ForMember(
                    dest => dest.KorisnikSifra,
                    opt => opt.MapFrom(src => src.Korisnik.Sifra)
                );
             CreateMap<NarudzbaDTOInsertUpdate, Narudzba>();
-            */
+            
 
         }
     }

@@ -11,7 +11,7 @@ import { RoutesNames } from "../../constants";
 
 export default function NarudzbePregled(){
     const [narudzbe,setNarudzbe] = useState();
-    let navigate = useNavigate(); 
+    const navigate = useNavigate(); 
 
     async function dohvatiNarudzbe(){
         await Service.get()
@@ -57,10 +57,10 @@ export default function NarudzbePregled(){
                 <tbody>
                     {narudzbe && narudzbe.map((narudzba,index)=>(
                         <tr key={index}>
-                            <td>{narudzba.korisnikImePrezime}</td>
+                            <td>{narudzba.korisnikNaziv}</td>
                             <td>{narudzba.adresa}</td>
                             <td>{narudzba.datum}</td>
-                            <td>{narudzba.ukupna_Cijena}</td>
+                            <td>{narudzba.ukupnaCijena}</td>
                             <td className="sredina">
                                     <Button
                                         variant='primary'
