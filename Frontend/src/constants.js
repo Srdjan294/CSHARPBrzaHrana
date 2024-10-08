@@ -16,4 +16,4 @@ export const RoutesNames = {
 };
 
 
-export const BACKEND_URL = 'https://localhost:7222/api/v1';
+export const BACKEND_URL = 'http://srdjan294-002-site1.atempurl.com/api/v1';
