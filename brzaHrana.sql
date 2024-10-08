@@ -39,6 +39,7 @@ ukupna_cijena decimal(18,2) not null
 );
 
 create table stavke(
+sifra int not null primary key identity(1,1),
 narudzba int not null,
 jelovnik int not null,
 kolicina int not null
