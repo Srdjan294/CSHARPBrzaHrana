@@ -70,7 +70,7 @@ async function promjena(sifra,Narudzba) {
         }
     })
 }
-
+// ovo tine treba
 async function getJelovnici(sifra){
     return await HttpService.get('/Narudzba/Jelovnici/'+ sifra)
     .then((odgovor)=>{

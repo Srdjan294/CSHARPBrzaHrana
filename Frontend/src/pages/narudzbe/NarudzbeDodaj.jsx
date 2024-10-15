@@ -85,7 +85,7 @@ export default function NarudzbeDodaj() {
 
           <Form.Group controlId="ukupnaCijena">
               <Form.Label>Ukupna cijena</Form.Label>
-              <Form.Control type="number" name="ukupnaCijena" step={0.0100}/>
+              <Form.Control type="number" name="ukupnaCijena" step={0.01}/>
           </Form.Group>
 
 

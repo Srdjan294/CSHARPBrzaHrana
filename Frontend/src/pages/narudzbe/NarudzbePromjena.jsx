@@ -4,7 +4,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Service from '../../services/NarudzbaService';
 import KorisnikService from '../../services/KorisnikService';
+import JelovnikService from '../../services/JelovnikService';
 import { RoutesNames } from '../../constants';
+import moment from "moment";
 
 
 export default function NarudzbePromjena() {
@@ -28,13 +30,15 @@ export default function NarudzbePromjena() {
       alert(odgovor.poruka);
       return;
   }
+    odgovor.poruka.datum = moment.utc(odgovor.poruka.datum).format('yyyy-MM-DD');
     let narudzba = odgovor.poruka;
     setNarudzba(narudzba);
-    setKorisnikSifra(narudzba.smjerSifra); 
+    setKorisnikSifra(narudzba.korisnikSifra); 
+    
   }
 
   async function dohvatiJelovnici() {
-    const odgovor = await Service.getJelovnici(routeParams.sifra);
+    const odgovor = await JelovnikService.get();
     if(odgovor.greska){
       alert(odgovor.poruka);
       return;
@@ -45,8 +49,9 @@ export default function NarudzbePromjena() {
 
   async function dohvatiInicijalnePodatke() {
     await dohvatiKorisnike();
-    await dohvatiNarudzba();
     await dohvatiJelovnici();
+    await dohvatiNarudzba();
+    
   }
 
 
@@ -73,8 +78,8 @@ export default function NarudzbePromjena() {
     promjena({
       korisnikSifra: parseInt(korisnikSifra),   
       adresa: podaci.get('adresa'),
-      datum: moment.utc(podaci.get('datum')),
-      ukupna_Cijena: parseFloat(podaci.get('ukupna_Cijena'))
+      datum:  moment.utc(podaci.get('datum')),
+      ukupnaCijena: parseFloat(podaci.get('ukupna_Cijena'))
     });
   }
 
@@ -100,7 +105,7 @@ export default function NarudzbePromjena() {
           
           <Form.Group controlId="adresa">
               <Form.Label>Adresa</Form.Label>
-              <Form.Control type="text" name="naziv" required defaultValue={narudzba.adresa}/>
+              <Form.Control type="text" name="adresa" required defaultValue={narudzba.adresa}/>
           </Form.Group>
 
         
@@ -112,7 +117,7 @@ export default function NarudzbePromjena() {
 
           <Form.Group controlId="ukupna_Cijena">
               <Form.Label>Ukupna cijena</Form.Label>
-              <Form.Control type="number" name="ukupna_Cijena" set={0.01} defaultValue={narudzba.ukupna_Cijena}/>
+              <Form.Control type="number" name="ukupna_Cijena" set={0.01} defaultValue={narudzba.ukupnaCijena}/>
           </Form.Group>
 
 
@@ -143,7 +148,7 @@ export default function NarudzbePromjena() {
                 jelovnici.map((jelovnik, index) => (
                   <tr key={index}>
                     <td>
-                       {jelovnik.naziv_Jela} 
+                       {jelovnik.nazivJela} 
                       
                     </td>
                     <td>
